@@ -1,13 +1,14 @@
 require("dotenv").config();
-
+var fs = require("fs");
 var keys = require("./keys.js");
+var omdbkey = require("./omdbkey.js");
 var axios = require("axios");
 var moment = require('moment');
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
-var argsCopy = Array.from(process.argv)
-var argsCopy2 = Array.from(process.argv)
-
+var omdbAPIKey = omdbkey.omdb.apiKey;
+var argsCopy = Array.from(process.argv);
+var argsCopy2 = Array.from(process.argv);
 var args = Array.from(argsCopy.splice(2));
 var args2 = Array.from(argsCopy2.splice(3));
 var search = args2.join(" ");
@@ -25,9 +26,7 @@ if (args[0] === "concert-this") {
         function (response) {
             console.log("*");
             console.log("*");
-            console.log("*");
             console.log(artist + " events:");
-            console.log("*");
             console.log("*");
             console.log("*");
             for (var i in response.data) {
@@ -53,6 +52,7 @@ if (args[0] === "concert-this") {
         }
     );
 }
+
 
 
 // `spotify-this-song`
@@ -117,76 +117,121 @@ if (args[0] === "spotify-this-song") {
     };
 }
 
-// response.tracks.items    returns array of objects:
-//    
-// [
-//     {
-//       album: {
-//              album_type: 'compilation',
-//              artists: [Array],
-//              available_markets: [Array],
-//              external_urls: [Object],
-//              href: 'https://api.spotify.com/v1/albums/1Fq1oCtmlSQabl1zIdoWCg',
-//              id: '1Fq1oCtmlSQabl1zIdoWCg',
-//              images: [Array],
-//              name: 'Arista Heritage Series: Ray Parker',
-//              release_date: '2000-02-08',
-//              release_date_precision: 'day',
-//              total_tracks: 11,
-//              type: 'album',
-//              uri: 'spotify:album:1Fq1oCtmlSQabl1zIdoWCg'
-//              },
-//       artists: [ [Object] ],
-//       available_markets: [
-//              'AD', 'AE', 'AR', 'BE', 'BH', 'BO', 'BR', 'CA',
-//              'CH', 'CL', 'CO', 'CR', 'CY', 'DE', 'DK', 'DO',
-//              'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB',
-//              'GR', 'GT', 'HK', 'HN', 'ID', 'IE', 'IN', 'IS',
-//              'IT', 'JO', 'JP', 'KW', 'LB', 'LI', 'LT', 'LU',
-//              'LV', 'MA', 'MC', 'MT', 'MX', 'MY', 'NI', 'NL',
-//               'NO', 'OM', 'PA', 'PE', 'PH', 'PS', 'PT', 'PY',
-//              'QA', 'SA', 'SE', 'SG', 'SV', 'TH', 'TN', 'TW',
-//              'US', 'UY', 'VN', 'ZA'
-//              ],
-//       disc_number: 1,
-//       duration_ms: 240800,
-//       explicit: false,
-//       external_ids: { isrc: 'USAR18400117' },
-//       external_urls: {
-//         spotify: 'https://open.spotify.com/track/300zfRaCgTmEm5Eqe3HqZZ'
-//          },
-//       href: 'https://api.spotify.com/v1/tracks/300zfRaCgTmEm5Eqe3HqZZ',
-//       id: '300zfRaCgTmEm5Eqe3HqZZ',
-//       is_local: false,
-//       name: 'Ghostbusters',
-//       popularity: 61,
-//       preview_url: 'https://p.scdn.co/mp3-preview/fc919929a10a7d712f76c36566321e2048f7daa8?cid=ccdf0875926e459ebdc541cd188992a6',
-//       track_number: 4,
-//       type: 'track',
-//       uri: 'spotify:track:300zfRaCgTmEm5Eqe3HqZZ'
-//     },
-
-
-
-
-// 2. `node liri.js spotify-this-song '<song name here>'`
-
-//    * This will show the following information about the song in your terminal/bash window
-
-//  X    * Artist(s)
-
-//   X   * The song's name
-
-//   X   * A preview link of the song from Spotify
-
-//      * The album that the song is from
-
-//    * If no song is provided then your program will default to "The Sign" by Ace of Base.
-
-
-
-
-
 
 // `movie-this`
+
+if (args[0] === "movie-this") {
+
+    if (args.length === 1) {
+        console.log("No movie was entered. Here is the info for 'Mr. Nobody.'")
+        var movie = search;
+        var queryUrl =
+            "http://www.omdbapi.com/?apikey=" + omdbAPIKey + "&t=Mr. Nobody";
+
+        axios.get(queryUrl).then(
+            function (response) {
+                console.log("*");
+                console.log("*");
+                console.log("Information for Mr. Nobody");
+                console.log("*");
+                console.log("*");
+                console.log("Movie Title: " + response.data.Title);
+                console.log("Year of Release: " + response.data.Year);
+                console.log("IMDB Rating: " + response.data.Ratings[0].Value);
+                console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+                console.log("Where it was Produced: " + response.data.Country);
+                console.log("Language: " + response.data.Language);
+                console.log("Plot: " + response.data.Plot);
+                console.log("Cast: " + response.data.Actors);
+                console.log("*");
+                console.log("*");
+                console.log("Please enter a movie name after 'movie-this' to search. (e.g. node liri.js movie-this Jaws)");
+                console.log("*");
+                console.log("*");
+            },
+
+            function (error) {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("Error", error.message);
+                }
+                console.log(error.config);
+            }
+        );
+    } else {
+
+        var movie = search;
+        var queryUrl =
+            "http://www.omdbapi.com/?apikey=" + omdbAPIKey + "&t=" + movie;
+
+        axios.get(queryUrl).then(
+            function (response) {
+                console.log("*");
+                console.log("*");
+                console.log("Information for ", movie);
+                console.log("*");
+                console.log("*");
+                console.log("Movie Title: " + response.data.Title);
+                console.log("Year of Release: " + response.data.Year);
+                console.log("IMDB Rating: " + response.data.Ratings[0].Value);
+                console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+                console.log("Where it was Produced: " + response.data.Country);
+                console.log("Language: " + response.data.Language);
+                console.log("Plot: " + response.data.Plot);
+                console.log("Cast: " + response.data.Actors);
+            },
+
+            function (error) {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("Error", error.message);
+                }
+                console.log(error.config);
+            }
+        );
+    };
+};
+
+
+
 // `do-what-it-says`;
+
+if (args[0] === "do-what-it-says") {
+
+    fs.readFile("random.txt", "utf8", function (error, data) {
+
+        // If the code experiences any errors it will log the error to the console.
+        if (error) {
+            return console.log(error);
+        }
+
+        // We will then print the contents of data
+        console.log(data);
+
+        // Then split it by commas (to make it more readable)
+        var dataArr = data.split(",");
+
+        // We will then re-display the content as an array for later use.
+        console.log(dataArr);
+
+    });
+};
+
+
+// 4. `node liri.js do-what-it-says`
+
+//    * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+
+//      * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
+
+//      * Edit the text in random.txt to test out the feature for movie-this and concert-this.
