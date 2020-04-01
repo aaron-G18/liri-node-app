@@ -1,7 +1,5 @@
 require("dotenv").config();
-
 var exec = require("child_process").exec;
-
 var fs = require("fs");
 var keys = require("./keys.js");
 var omdbkey = require("./omdbkey.js");
@@ -15,12 +13,12 @@ var argsCopy2 = Array.from(process.argv);
 var args = Array.from(argsCopy.splice(2));
 var args2 = Array.from(argsCopy2.splice(3));
 var search = args2.join(" ");
-console.log("top level search= ", search);
+console.log("Global search= ", search);
 
-// functions
+//// FUNCTIONS
 
 function concertSearch(args, search) {
-    console.log("search= ", search);
+    console.log("Concert function search= ", search);
     if (args.length === 1) {
         console.log("*");
         console.log("*");
@@ -67,7 +65,6 @@ function concertSearch(args, search) {
     };
 
 };
-
 
 function spotifySearch(args, search) {
     if (args.length === 1) {
@@ -209,35 +206,22 @@ function movieSearch(args, search) {
     };
 };
 
-
-
-
-
 //  `concert-this`;
 if (args[0] === "concert-this") {
     concertSearch(args, search);
 };
 
-
-
 // `spotify-this-song`
 
 if (args[0] === "spotify-this-song") {
-
     spotifySearch(args, search);
-
 };
-
 
 // `movie-this`
 
 if (args[0] === "movie-this") {
-
     movieSearch(args, search);
-
 };
-
-
 
 // `do-what-it-says`;
 
@@ -247,9 +231,9 @@ if (args[0] === "do-what-it-says") {
         var args = data.split(",");
         var args2 = Array.from(args);
         var search = args2.splice(1).join(" ");
-        console.log("args= ", args);
-        console.log("args2= ", args2);
-        console.log("search= ", search);
+        console.log("do-what-it-says function args= ", args);
+        console.log("do-what-it-says function args2= ", args2);
+        console.log("do-what-it-says function search= ", search);
 
         // If the code experiences any errors it will log the error to the console.
         if (error) {
