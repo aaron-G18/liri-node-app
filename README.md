@@ -12,8 +12,8 @@ The API keys need to be entered on the .env file in the following format:
 
 '# Spotify API keys'
 
-'SPOTIFY_ID=xxxxxx'
-'SPOTIFY_SECRET=yyyyyy'
+'SPOTIFY_ID=xxxxxx
+SPOTIFY_SECRET=yyyyyy'
 
 '# OMDB API key'
 
