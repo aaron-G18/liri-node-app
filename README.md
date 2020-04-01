@@ -27,4 +27,14 @@ The API keys need to be entered on the .env file in the following format:
 * To search for song/album information, "spotify-this-song" and the song title should be typed after the "node liri.js" and then press enter. (e.g. "node liri.js spotify-this-song Criminal")
 * To search for information about a movie, "movie-this" and the movie title should be typed after the "node liri.js" and then press enter. (e.g. "node liri.js movie-this Jaws)
 
-Here are some screenshots of the app results:
+Here are linsk to some screenshots of the app results and a video of the app in use:
+
+[concert-this Metallica](https://github.com/aaron-G18/liri-node-app/blob/master/images/concert-this%20Metallica.png)
+
+[spotify-this-song Criminal](https://github.com/aaron-G18/liri-node-app/blob/master/images/spotify-this-song%20Criminal.png)
+
+[movie-this](https://github.com/aaron-G18/liri-node-app/blob/master/images/movie-this%20Jaws.png)
+
+[video of app in use](https://github.com/aaron-G18/liri-node-app/blob/master/images/screen%20reording%20of%20liri%20app.mov)
+
+
