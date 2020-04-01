@@ -15,55 +15,63 @@ var argsCopy2 = Array.from(process.argv);
 var args = Array.from(argsCopy.splice(2));
 var args2 = Array.from(argsCopy2.splice(3));
 var search = args2.join(" ");
+console.log("top level search= ", search);
 
-//  `concert-this`;
+// functions
 
-if (args[0] === "concert-this") {
-    var artist = search;
-    var queryUrl =
-        "https://rest.bandsintown.com/artists/" +
-        artist +
-        "/events?app_id=codingbootcamp";
-
-    axios.get(queryUrl).then(
-        function (response) {
-            console.log("*");
-            console.log("*");
-            console.log(artist + " events:");
-            console.log("*");
-            console.log("*");
-            for (var i in response.data) {
-                console.log("--------------------")
-                console.log("Venue Name: " + response.data[i].venue.name);
-                console.log("Location: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
-                console.log("Date & Time: " + moment(response.data[i].datetime).format("MM/DD/YYYY HH:mm"));
-            };
-
-        },
-
-        function (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log("Error", error.message);
-            }
-            console.log(error.config);
-        }
-    );
-}
-
-
-
-// `spotify-this-song`
-
-if (args[0] === "spotify-this-song") {
-
+function concertSearch(args, search) {
+    console.log("search= ", search);
     if (args.length === 1) {
-        console.log("No song was entered. Here is the info for 'The Sign' by Ace of Base.")
+        console.log("*");
+        console.log("*");
+        console.log("No artist/band was entered. Please enter an artist or band after 'concert-this' to search. (e.g. node liri.js concert-this Metallica");
+        console.log("*");
+        console.log("*");
+
+    } else {
+        var artist = search;
+        var queryUrl =
+            "https://rest.bandsintown.com/artists/" +
+            artist +
+            "/events?app_id=codingbootcamp";
+
+        axios.get(queryUrl).then(
+            function (response) {
+                console.log("*");
+                console.log("*");
+                console.log(artist + " events:");
+                console.log("*");
+                console.log("*");
+                for (var i in response.data) {
+                    console.log("--------------------")
+                    console.log("Venue Name: " + response.data[i].venue.name);
+                    console.log("Location: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
+                    console.log("Date & Time: " + moment(response.data[i].datetime).format("MM/DD/YYYY HH:mm"));
+                };
+
+            },
+
+            function (error) {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("Error", error.message);
+                }
+                console.log(error.config);
+            }
+        );
+    };
+
+};
+
+
+function spotifySearch(args, search) {
+    if (args.length === 1) {
+        console.log("No song was entered. Here is the info for 'The Sign' by Ace of Base.");
         spotify
             .search({
                 type: 'track',
@@ -118,13 +126,9 @@ if (args[0] === "spotify-this-song") {
 
 
     };
-}
+};
 
-
-// `movie-this`
-
-if (args[0] === "movie-this") {
-
+function movieSearch(args, search) {
     if (args.length === 1) {
         console.log("No movie was entered. Here is the info for 'Mr. Nobody.'")
         var movie = search;
@@ -207,21 +211,59 @@ if (args[0] === "movie-this") {
 
 
 
+
+
+//  `concert-this`;
+if (args[0] === "concert-this") {
+    concertSearch(args, search);
+};
+
+
+
+// `spotify-this-song`
+
+if (args[0] === "spotify-this-song") {
+
+    spotifySearch(args, search);
+
+};
+
+
+// `movie-this`
+
+if (args[0] === "movie-this") {
+
+    movieSearch(args, search);
+
+};
+
+
+
 // `do-what-it-says`;
 
 if (args[0] === "do-what-it-says") {
 
     fs.readFile("random.txt", "utf8", function (error, data) {
+        var args = data.split(",");
+        var args2 = Array.from(args);
+        var search = args2.splice(1).join(" ");
+        console.log("args= ", args);
+        console.log("args2= ", args2);
+        console.log("search= ", search);
 
         // If the code experiences any errors it will log the error to the console.
         if (error) {
             return console.log(error);
         }
-
-        console.log(data);
-
-        var dataArr = data.split(",");
-        console.log(dataArr);
+        if (args[0] === "concert-this") {
+            concertSearch(args, search);
+        } else if (args[0] === "spotify-this-song") {
+            spotifySearch(args, search);
+        } else if (args[0] === "movie-this") {
+            movieSearch(args, search);
+        } else {
+            console.log("Error, do-what-it-says did not work.")
+        }
 
     });
 };
