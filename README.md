@@ -19,7 +19,7 @@ The API keys need to be entered on the .env file in the following format:
 >
 >'OMDB_APIKEY=zzzzzz'
 
-(xxxxxx would be their node-spotify ID, yyyyyy would be their node-spotify secret, and zzzzzz would be their OMDB API key)
+(without the ' ', xxxxxx would be their node-spotify ID, yyyyyy would be their node-spotify secret, and zzzzzz would be their OMDB API key)
 
 
 **There are four main shell commands that can be entered to execute the app correctly.**
