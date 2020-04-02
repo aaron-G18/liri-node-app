@@ -10,17 +10,19 @@ Movie information for movie titles entered.
 The user will need to create a .env file in the root directory and enter their own API keys for Spotify and OMDB.
 The API keys need to be entered on the .env file in the following format:
 
-'# Spotify API keys'
+# Spotify API keys
 
-'SPOTIFY_ID=xxxxxx'
+'''
+SPOTIFY_ID=xxxxxx
 
-'SPOTIFY_SECRET=yyyyyy'
+SPOTIFY_SECRET=yyyyyy
 
-'# OMDB API key'
+# OMDB API key
 
-'OMDB_APIKEY=zzzzzz'
+OMDB_APIKEY=zzzzzz
+'''
 
-(without the ' ', xxxxxx would be their node-spotify ID, yyyyyy would be their node-spotify secret, and zzzzzz would be their OMDB API key)
+(xxxxxx would be their node-spotify ID, yyyyyy would be their node-spotify secret, and zzzzzz would be their OMDB API key)
 
 
 **There are four main shell commands that can be entered to execute the app correctly.**
