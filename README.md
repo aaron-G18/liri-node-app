@@ -12,8 +12,9 @@ The API keys need to be entered on the .env file in the following format:
 
 '# Spotify API keys'
 
-'SPOTIFY_ID=xxxxxx
-SPOTIFY_SECRET=yyyyyy'
+'SPOTIFY_ID=xxxxxx'
+
+'SPOTIFY_SECRET=yyyyyy'
 
 '# OMDB API key'
 
@@ -24,10 +25,11 @@ SPOTIFY_SECRET=yyyyyy'
 
 **There are four main shell commands that can be entered to execute the app correctly.**
 * **Any of the shell commands should start with "node liri.js" and then have key commands added after that.**
-* To search for concert events, "concert-this" and the band/artist name should be typed after "node liri.js" and then press enter. (e.g. "node liri.js concert-this Metallica")
-* To search for song/album information, "spotify-this-song" and the song title should be typed after "node liri.js" and then press enter. (e.g. "node liri.js spotify-this-song Criminal")
-* To search for information about a movie, "movie-this" and the movie title should be typed after "node liri.js" and then press enter. (e.g. "node liri.js movie-this Jaws)
-* To use the text in the "random.txt" file to search, "do-what-it-says" should be entered after "node liri.js" and then press enter. (e.g. "node liri.js do-what-it-says")
+* To search for concert events, "concert-this" and the band/artist name should be typed after "node liri.js" and then press enter (e.g. "node liri.js concert-this Metallica").
+* To search for song/album information, "spotify-this-song" and the song title should be typed after "node liri.js" and then press enter (e.g. "node liri.js spotify-this-song Criminal").
+* To search for information about a movie, "movie-this" and the movie title should be typed after "node liri.js" and then press enter (e.g. "node liri.js movie-this Jaws).
+* To use the text in the "random.txt" file to search, "do-what-it-says" should be entered after "node liri.js" and then press enter (e.g. "node liri.js do-what-it-says"). 
+If you want to edit the "random.txt" file to use with the "do-what-it-says" command, make sure to keep the format of the text the same..... *command,search* (e.g. "spotify-this-song,Criminal").
 
 Here are linsk to some screenshots of the app results and a video of the app in use:
 
