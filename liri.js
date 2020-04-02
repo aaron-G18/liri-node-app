@@ -13,10 +13,10 @@ var argsCopy2 = Array.from(process.argv);
 var args = Array.from(argsCopy.splice(2));
 var args2 = Array.from(argsCopy2.splice(3));
 var search = args2.join(" ");
-console.log("Global search= ", search);
+
 
 //// FUNCTIONS
-
+// function to use band in town
 function concertSearch(args, search) {
     console.log("Concert function search= ", search);
     if (args.length === 1) {
@@ -66,6 +66,7 @@ function concertSearch(args, search) {
 
 };
 
+// function to use node-spotify
 function spotifySearch(args, search) {
     if (args.length === 1) {
         console.log("No song was entered. Here is the info for 'The Sign' by Ace of Base.");
@@ -125,6 +126,7 @@ function spotifySearch(args, search) {
     };
 };
 
+// function to us omdb
 function movieSearch(args, search) {
     if (args.length === 1) {
         console.log("No movie was entered. Here is the info for 'Mr. Nobody.'")
@@ -206,39 +208,35 @@ function movieSearch(args, search) {
     };
 };
 
-//  `concert-this`;
+//  `concert-this` if statement to catch if concert-this command is entered in shell.
 if (args[0] === "concert-this") {
     concertSearch(args, search);
 };
 
-// `spotify-this-song`
-
+// `spotify-this-song` if statement to catch if spotify-this-song command is entered in shell.
 if (args[0] === "spotify-this-song") {
     spotifySearch(args, search);
 };
 
-// `movie-this`
-
+// `movie-this` if statement to catch if movie-this command is entered in shell.
 if (args[0] === "movie-this") {
     movieSearch(args, search);
 };
 
-// `do-what-it-says`;
-
+// `do-what-it-says` if statement to catch if do-what-it-says is entered in shell.
 if (args[0] === "do-what-it-says") {
-
+    // pull the text from random.txt and pass as the arguments
     fs.readFile("random.txt", "utf8", function (error, data) {
+        // pull the text and format it into an array of two strings split on the comma.
         var args = data.split(",");
         var args2 = Array.from(args);
         var search = args2.splice(1).join(" ");
-        console.log("do-what-it-says function args= ", args);
-        console.log("do-what-it-says function args2= ", args2);
-        console.log("do-what-it-says function search= ", search);
 
         // If the code experiences any errors it will log the error to the console.
         if (error) {
             return console.log(error);
         }
+        // if/else if statements to decide what function to call depending on what the text is in the random.txt file and pass the created "args" into that function.
         if (args[0] === "concert-this") {
             concertSearch(args, search);
         } else if (args[0] === "spotify-this-song") {
@@ -248,16 +246,5 @@ if (args[0] === "do-what-it-says") {
         } else {
             console.log("Error, do-what-it-says did not work.")
         }
-
     });
 };
-
-
-
-// 4. `node liri.js do-what-it-says`
-
-//    * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-
-//      * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
-
-//      * Edit the text in random.txt to test out the feature for movie-this and concert-this.
